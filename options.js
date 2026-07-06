@@ -40,7 +40,7 @@ function openInTab() {  //Firefox bug 1382953
   permNode.checked = false;
   chrome.tabs.query({currentWindow: true, active: true}, tabs => {
     chrome.tabs.create({
-      url: chrome.extension.getURL("options.htm"),
+      url: chrome.runtime.getURL("options.htm"),
       openerTabId: tabs[0].id
     });
   });

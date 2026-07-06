@@ -1,7 +1,5 @@
 "use strict";
 
-const GO_BACK = !!chrome.tabs.goBack;
-
 let lastWheel = 0;
 let queryParam = {currentWindow: true};
 let noScroll = false;
@@ -60,18 +58,11 @@ chrome.runtime.onMessage.addListener(
         chrome.tabs.remove(tab.id);
 
       } else {
-        if(GO_BACK) {
-          if(msg.clickAction === 0) {
-            chrome.tabs.goBack(tab.id);
-          } else {
-            chrome.tabs.goForward(tab.id);
-          }
+        //MV3: tabs.executeScript is gone; goBack/goForward exist since Chrome 72
+        if(msg.clickAction === 0) {
+          chrome.tabs.goBack(tab.id);
         } else {
-          chrome.tabs.executeScript(tab.id, {
-            code: "history.go(" + (msg.clickAction === 0 ? -1 : 1) + ");",
-            matchAboutBlank: true,
-            runAt: "document_start"
-          });
+          chrome.tabs.goForward(tab.id);
         }
       }
     } else if(msg.permChanged) {
@@ -93,7 +84,7 @@ chrome.runtime.onInstalled.addListener(({reason}) => {
 });
 
 chrome.storage.onChanged.addListener(changes => {
-  noScroll = !!changes.noScroll.newValue;
+  if(changes.noScroll) noScroll = !!changes.noScroll.newValue;
 });
 
 chrome.storage.local.get("noScroll", data => {
