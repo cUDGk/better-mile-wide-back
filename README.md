@@ -1,3 +1,9 @@
+> [!IMPORTANT]
+> **Brave で使う場合**
+> 1. `brave://extensions` を開き、右上の「デベロッパー モード」を ON にする
+> 2. 「パッケージ化されていない拡張機能を読み込む」でこのフォルダを選択する
+> 3. **拡張機能を読み込んだ・更新した・設定を変えたら、Brave を一度完全に終了して起動し直す**（開いたままのタブには古いスクリプトが残り、`Cannot read properties of undefined (reading 'sendMessage')` が出て動かない）
+
 <div align="center">
 
 # Better Mile Wide Back
